@@ -5,16 +5,16 @@ package invidious
 
 import "github.com/antoniszymanski/option-go"
 
-func (c *Client) Stats() (StatsResponse, error) {
+func (c *Client) Stats() (*StatsResponse, error) {
 	var resp StatsResponse
 	if err := c.call(requestConfig{
 		Method: "GET",
 		Path:   "/api/v1/stats",
 		Output: &resp,
 	}); err != nil {
-		return StatsResponse{}, err
+		return nil, err
 	}
-	return resp, nil
+	return &resp, nil
 }
 
 type StatsResponse struct {

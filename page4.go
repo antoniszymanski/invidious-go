@@ -54,7 +54,7 @@ func getToken() (string, error) {
 	return token, nil
 }
 
-func (c *Client) Feed(req FeedRequest) (FeedResponse, error) {
+func (c *Client) Feed(req FeedRequest) (*FeedResponse, error) {
 	query := make(url.Values)
 	if req.MaxResults.IsSome() {
 		query.Set("max_results", itoa(req.MaxResults.Unwrap()))
@@ -70,9 +70,9 @@ func (c *Client) Feed(req FeedRequest) (FeedResponse, error) {
 		Query:  query,
 		Output: &resp,
 	}); err != nil {
-		return FeedResponse{}, err
+		return nil, err
 	}
-	return resp, nil
+	return &resp, nil
 }
 
 type FeedRequest struct {
@@ -127,7 +127,7 @@ func (c *Client) Playlists() (PlaylistsResponse, error) {
 		Auth:   true,
 		Output: &resp,
 	}); err != nil {
-		return PlaylistsResponse{}, err
+		return nil, err
 	}
 	return resp, nil
 }
@@ -164,7 +164,7 @@ type PlaylistsResponse []struct {
 	} `json:"videos"`
 }
 
-func (c *Client) CreatePlaylist(req CreatePlaylistRequest) (CreatePlaylistResponse, error) {
+func (c *Client) CreatePlaylist(req CreatePlaylistRequest) (*CreatePlaylistResponse, error) {
 	var resp CreatePlaylistResponse
 	if err := c.call(requestConfig{
 		Method: "POST",
@@ -173,9 +173,9 @@ func (c *Client) CreatePlaylist(req CreatePlaylistRequest) (CreatePlaylistRespon
 		Input:  &req,
 		Output: &resp,
 	}); err != nil {
-		return CreatePlaylistResponse{}, err
+		return nil, err
 	}
-	return resp, nil
+	return &resp, nil
 }
 
 type CreatePlaylistRequest struct {
@@ -196,7 +196,7 @@ type CreatePlaylistResponse struct {
 	PlaylistId string `json:"playlistId"`
 }
 
-func (c *Client) Playlist(id string) (PlaylistResponse, error) {
+func (c *Client) Playlist(id string) (*PlaylistResponse, error) {
 	var resp PlaylistResponse
 	if err := c.call(requestConfig{
 		Method: "GET",
@@ -204,9 +204,9 @@ func (c *Client) Playlist(id string) (PlaylistResponse, error) {
 		Auth:   true,
 		Output: &resp,
 	}); err != nil {
-		return PlaylistResponse{}, err
+		return nil, err
 	}
-	return resp, nil
+	return &resp, nil
 }
 
 type PlaylistResponse struct {
@@ -267,7 +267,7 @@ func (c *Client) DeletePlaylist(id string) error {
 	})
 }
 
-func (c *Client) AddVideo(req AddVideoRequest) (AddVideoResponse, error) {
+func (c *Client) AddVideo(req AddVideoRequest) (*AddVideoResponse, error) {
 	var resp AddVideoResponse
 	if err := c.call(requestConfig{
 		Method: "POST",
@@ -276,9 +276,9 @@ func (c *Client) AddVideo(req AddVideoRequest) (AddVideoResponse, error) {
 		Input:  &req,
 		Output: &resp,
 	}); err != nil {
-		return AddVideoResponse{}, err
+		return nil, err
 	}
-	return resp, nil
+	return &resp, nil
 }
 
 type AddVideoRequest struct {
@@ -313,7 +313,7 @@ type DeleteVideoRequest struct {
 	IndexId    string
 }
 
-func (c *Client) Preferences() (PreferencesResponse, error) {
+func (c *Client) Preferences() (*PreferencesResponse, error) {
 	var resp PreferencesResponse
 	if err := c.call(requestConfig{
 		Method: "GET",
@@ -321,9 +321,9 @@ func (c *Client) Preferences() (PreferencesResponse, error) {
 		Auth:   true,
 		Output: &resp,
 	}); err != nil {
-		return PreferencesResponse{}, err
+		return nil, err
 	}
-	return resp, nil
+	return &resp, nil
 }
 
 type PreferencesResponse struct {
@@ -365,7 +365,7 @@ func (c *Client) Subscriptions() (SubscriptionsResponse, error) {
 		Auth:   true,
 		Output: &resp,
 	}); err != nil {
-		return SubscriptionsResponse{}, err
+		return nil, err
 	}
 	return resp, nil
 }
@@ -399,7 +399,7 @@ func (c *Client) Tokens() (TokensResponse, error) {
 		Auth:   true,
 		Output: &resp,
 	}); err != nil {
-		return TokensResponse{}, err
+		return nil, err
 	}
 	return resp, nil
 }
@@ -409,7 +409,7 @@ type TokensResponse []struct {
 	Issued  int64  `json:"issued"`
 }
 
-func (c *Client) RegisterToken(req RegisterTokenRequest) (Token, error) {
+func (c *Client) RegisterToken(req RegisterTokenRequest) (*Token, error) {
 	var resp Token
 	if err := c.call(requestConfig{
 		Method: "POST",
@@ -418,9 +418,9 @@ func (c *Client) RegisterToken(req RegisterTokenRequest) (Token, error) {
 		Input:  &req,
 		Output: &resp,
 	}); err != nil {
-		return Token{}, err
+		return nil, err
 	}
-	return resp, nil
+	return &resp, nil
 }
 
 type RegisterTokenRequest struct {
@@ -436,7 +436,7 @@ type Token struct {
 	Signature string    `json:"signature"`
 }
 
-func (t Token) Encode() (string, error) {
+func (t *Token) Encode() (string, error) {
 	out, err := json.Marshal(&t, opts)
 	if err != nil {
 		return "", err
@@ -444,17 +444,17 @@ func (t Token) Encode() (string, error) {
 	return url.QueryEscape(bytes2string(out)), nil
 }
 
-func ParseToken(in string) (Token, error) {
+func ParseToken(in string) (*Token, error) {
 	in, err := url.QueryUnescape(in)
 	if err != nil {
-		return Token{}, err
+		return nil, err
 	}
 	var t Token
 	err = json.Unmarshal(string2bytes(in), &t, opts)
 	if err != nil {
-		return Token{}, err
+		return nil, err
 	}
-	return t, nil
+	return &t, nil
 }
 
 func (c *Client) RevokeToken(req RevokeRequest) error {
@@ -486,7 +486,7 @@ func (c *Client) History(req HistoryRequest) (HistoryResponse, error) {
 		Query:  query,
 		Output: &resp,
 	}); err != nil {
-		return HistoryResponse{}, err
+		return nil, err
 	}
 	return resp, nil
 }
