@@ -450,7 +450,7 @@ func ParseToken(in string) (Token, error) {
 	return t, nil
 }
 
-func (c *Client) RevokeToken(req RevokeResponse) error {
+func (c *Client) RevokeToken(req RevokeRequest) error {
 	return c.call(requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/tokens/unregister",
@@ -459,7 +459,7 @@ func (c *Client) RevokeToken(req RevokeResponse) error {
 	})
 }
 
-type RevokeResponse struct {
+type RevokeRequest struct {
 	Session string `json:"session"`
 }
 
