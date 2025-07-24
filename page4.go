@@ -346,9 +346,8 @@ type PreferencesResponse struct {
 	Volume                uint8    `json:"volume"`
 }
 
-func (c *Client) UpdatePreferences() {
-	panic("unimplemented")
-}
+// func (c *Client) UpdatePreferences() {
+// }
 
 func (c *Client) Subscriptions() (SubscriptionsResponse, error) {
 	var resp SubscriptionsResponse
