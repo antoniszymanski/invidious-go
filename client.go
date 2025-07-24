@@ -133,8 +133,8 @@ type Error struct {
 
 func (e Error) Error() string {
 	if e.Message == "" {
-		return "error " + itoa(e.StatusCode) + " - " + http.StatusText(e.StatusCode)
+		return itoa(e.StatusCode) + " " + http.StatusText(e.StatusCode)
 	} else {
-		return "error " + itoa(e.StatusCode) + " - " + http.StatusText(e.StatusCode) + " - " + quote(e.Message)
+		return itoa(e.StatusCode) + " " + http.StatusText(e.StatusCode) + " - " + quote(e.Message)
 	}
 }
