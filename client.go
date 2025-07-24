@@ -16,8 +16,8 @@ import (
 )
 
 type Client struct {
-	URL   string
-	Token string
+	InstanceURL string
+	RawToken    string
 }
 
 const ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
@@ -69,7 +69,7 @@ func (c *Client) call(config requestConfig) error {
 
 	req, err := http.NewRequest(
 		config.Method,
-		c.URL+config.Path+query,
+		c.InstanceURL+config.Path+query,
 		body,
 	)
 	if err != nil {
@@ -78,7 +78,7 @@ func (c *Client) call(config requestConfig) error {
 
 	req.Header.Set("User-Agent", ua)
 	if config.Auth {
-		req.Header.Set("Authorization", "Bearer "+c.Token)
+		req.Header.Set("Authorization", "Bearer "+c.RawToken)
 	}
 	if config.Input != nil {
 		req.Header.Set("Content-Type", "application/json")

@@ -19,11 +19,11 @@ func (c *Client) AuthorizeToken(expire time.Time, scopes ...string) (err error) 
 	query.Set("scopes", strings.Join(scopes, ","))
 	query.Set("callback_url", "http://localhost:8080")
 	query.Set("expire", itoa(expire.Unix()))
-	url := c.URL + "/authorize_token" + "?" + query.Encode()
+	url := c.InstanceURL + "/authorize_token" + "?" + query.Encode()
 	if err = browser.OpenURL(url); err != nil {
 		return
 	}
-	c.Token, err = getToken()
+	c.RawToken, err = getToken()
 	return
 }
 
