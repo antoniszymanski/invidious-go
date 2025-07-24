@@ -1,0 +1,9 @@
+{
+  "go.addTags": {
+    "tags": "json",
+    "options": "",
+    "promptForTags": false,
+    "transform": "camelcase",
+    "template": ""
+  }
+}

@@ -1,0 +1,10 @@
+github.com/antoniszymanski/option-go v0.1.1 h1:Cbaamma/43ikrYdath/6rmFwnK1YQOR8wkGg0NZUfAg=
+github.com/antoniszymanski/option-go v0.1.1/go.mod h1:t8syfEHiRnD73AAG3AmLsB8Sc6XetHCXFx8CSSrqS6c=
+github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa h1:TwQMqyL9qyLKVLfsx7bVC1JxMcFjGxdfio4Ttsp2pEc=
+github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa/go.mod h1:HH8s+fOAxjhQoBUAsKuPCbqUuxZDhQ2/aD+SzsEfBTk=
+github.com/go-json-experiment/json v0.0.0-20250714165856-be8212f5270d h1:+d6m5Bjvv0/RJct1VcOw2P5bvBOGjENmxORJYnSYDow=
+github.com/go-json-experiment/json v0.0.0-20250714165856-be8212f5270d/go.mod h1:TiCD2a1pcmjd7YnhGH0f/zKNcCD06B029pHhzV23c2M=
+golang.org/x/exp v0.0.0-20250718183923-645b1fa84792 h1:R9PFI6EUdfVKgwKjZef7QIwGcBKu86OEFpJ9nUEP2l4=
+golang.org/x/exp v0.0.0-20250718183923-645b1fa84792/go.mod h1:A+z0yzpGtvnG90cToK5n2tu8UJVP2XUATh+r+sfOOOc=
+golang.org/x/sys v0.13.0 h1:Af8nKPmuFypiUBjVoU9V20FiaFXOcuZI21p0ycVYYGE=
+golang.org/x/sys v0.13.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
