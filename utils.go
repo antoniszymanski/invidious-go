@@ -14,6 +14,14 @@ func itoa[T constraints.Signed](i T) string {
 	return strconv.FormatInt(int64(i), 10)
 }
 
+func quote(s string) string {
+	if strconv.CanBackquote(s) {
+		return "`" + s + "`"
+	} else {
+		return strconv.QuoteToGraphic(s)
+	}
+}
+
 func string2bytes(s string) []byte {
 	return unsafe.Slice(unsafe.StringData(s), len(s))
 }

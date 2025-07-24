@@ -9,7 +9,6 @@ import (
 	"io"
 	"net/http"
 	"net/url"
-	"strconv"
 	"time"
 
 	"github.com/go-json-experiment/json"
@@ -124,13 +123,5 @@ func (e Error) Error() string {
 		return "error " + itoa(e.StatusCode) + " - " + http.StatusText(e.StatusCode)
 	} else {
 		return "error " + itoa(e.StatusCode) + " - " + http.StatusText(e.StatusCode) + " - " + quote(e.Message)
-	}
-}
-
-func quote(s string) string {
-	if strconv.CanBackquote(s) {
-		return "`" + s + "`"
-	} else {
-		return strconv.QuoteToGraphic(s)
 	}
 }
