@@ -179,9 +179,17 @@ func (c *Client) CreatePlaylist(req CreatePlaylistRequest) (CreatePlaylistRespon
 }
 
 type CreatePlaylistRequest struct {
-	Title   string `json:"title"`
-	Privacy string `json:"privacy"` // "public" | "unlisted" | "private"
+	Title   string  `json:"title"`
+	Privacy Privacy `json:"privacy"`
 }
+
+type Privacy string
+
+const (
+	Public   Privacy = "public"
+	Unlisted Privacy = "unlisted"
+	Private  Privacy = "private"
+)
 
 type CreatePlaylistResponse struct {
 	Title      string `json:"title"`
@@ -245,10 +253,10 @@ func (c *Client) UpdatePlaylist(req UpdatePlaylistRequest) error {
 }
 
 type UpdatePlaylistRequest struct {
-	Id          string                `json:"-"`
-	Title       option.Option[string] `json:"title"`
-	Description option.Option[string] `json:"description"`
-	Privacy     option.Option[string] `json:"privacy"` // "public" | "unlisted" | "private"
+	Id          string                 `json:"-"`
+	Title       option.Option[string]  `json:"title"`
+	Description option.Option[string]  `json:"description"`
+	Privacy     option.Option[Privacy] `json:"privacy"`
 }
 
 func (c *Client) DeletePlaylist(id string) error {
