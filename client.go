@@ -19,6 +19,7 @@ type Client struct {
 	InstanceURL string
 	RawToken    string
 	UserAgent   string
+	HTTPClient  *http.Client
 }
 
 func NewClient(instanceURL string) *Client {
@@ -91,7 +92,12 @@ func (c *Client) call(config requestConfig) error {
 		req.Header.Set("User-Agent", pkgPath+" "+Version())
 	}
 
-	resp, err := http.DefaultClient.Do(req)
+	var resp *http.Response
+	if c.HTTPClient != nil {
+		resp, err = c.HTTPClient.Do(req)
+	} else {
+		resp, err = http.DefaultClient.Do(req)
+	}
 	if err != nil {
 		return err
 	}
