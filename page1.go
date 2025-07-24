@@ -7,7 +7,7 @@ import "github.com/antoniszymanski/option-go"
 
 func (c *Client) Stats() (*StatsResponse, error) {
 	var resp StatsResponse
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "GET",
 		Path:   "/api/v1/stats",
 		Output: &resp,

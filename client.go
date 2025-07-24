@@ -56,7 +56,7 @@ var opts = json.JoinOptions(
 	)),
 )
 
-func (c *Client) call(config requestConfig) error {
+func (c *Client) call(config *requestConfig) error {
 	var query string
 	if len(config.Query) > 0 {
 		query = "?" + config.Query.Encode()

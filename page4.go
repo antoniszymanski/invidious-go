@@ -63,7 +63,7 @@ func (c *Client) Feed(req FeedRequest) (*FeedResponse, error) {
 		query.Set("page", itoa(req.Page.Unwrap()))
 	}
 	var resp FeedResponse
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "GET",
 		Path:   "/api/v1/auth/feed",
 		Auth:   true,
@@ -121,7 +121,7 @@ type FeedResponse struct {
 
 func (c *Client) Playlists() (PlaylistsResponse, error) {
 	var resp PlaylistsResponse
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "GET",
 		Path:   "/api/v1/auth/playlists",
 		Auth:   true,
@@ -166,7 +166,7 @@ type PlaylistsResponse []struct {
 
 func (c *Client) CreatePlaylist(req CreatePlaylistRequest) (*CreatePlaylistResponse, error) {
 	var resp CreatePlaylistResponse
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/playlists",
 		Auth:   true,
@@ -198,7 +198,7 @@ type CreatePlaylistResponse struct {
 
 func (c *Client) Playlist(id string) (*PlaylistResponse, error) {
 	var resp PlaylistResponse
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "GET",
 		Path:   "/api/v1/auth/playlists/" + id,
 		Auth:   true,
@@ -244,7 +244,7 @@ type PlaylistResponse struct {
 }
 
 func (c *Client) UpdatePlaylist(req UpdatePlaylistRequest) error {
-	return c.call(requestConfig{
+	return c.call(&requestConfig{
 		Method: "PATCH",
 		Path:   "/api/v1/auth/playlists/" + req.Id,
 		Auth:   true,
@@ -260,7 +260,7 @@ type UpdatePlaylistRequest struct {
 }
 
 func (c *Client) DeletePlaylist(id string) error {
-	return c.call(requestConfig{
+	return c.call(&requestConfig{
 		Method: "DELETE",
 		Path:   "/api/v1/auth/playlists/" + id,
 		Auth:   true,
@@ -269,7 +269,7 @@ func (c *Client) DeletePlaylist(id string) error {
 
 func (c *Client) AddVideo(req AddVideoRequest) (*AddVideoResponse, error) {
 	var resp AddVideoResponse
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/playlists/" + req.PlaylistId + "/videos",
 		Auth:   true,
@@ -301,7 +301,7 @@ type AddVideoResponse struct {
 }
 
 func (c *Client) DeleteVideo(req DeleteVideoRequest) error {
-	return c.call(requestConfig{
+	return c.call(&requestConfig{
 		Method: "DELETE",
 		Path:   "/api/v1/auth/playlists/" + req.PlaylistId + "/videos/" + req.IndexId,
 		Auth:   true,
@@ -315,7 +315,7 @@ type DeleteVideoRequest struct {
 
 func (c *Client) Preferences() (*PreferencesResponse, error) {
 	var resp PreferencesResponse
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "GET",
 		Path:   "/api/v1/auth/preferences",
 		Auth:   true,
@@ -359,7 +359,7 @@ type PreferencesResponse struct {
 
 func (c *Client) Subscriptions() (SubscriptionsResponse, error) {
 	var resp SubscriptionsResponse
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "GET",
 		Path:   "/api/v1/auth/subscriptions",
 		Auth:   true,
@@ -376,7 +376,7 @@ type SubscriptionsResponse []struct {
 }
 
 func (c *Client) AddSubscription(ucid string) error {
-	return c.call(requestConfig{
+	return c.call(&requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/subscriptions/" + ucid,
 		Auth:   true,
@@ -384,7 +384,7 @@ func (c *Client) AddSubscription(ucid string) error {
 }
 
 func (c *Client) RemoveSubscription(ucid string) error {
-	return c.call(requestConfig{
+	return c.call(&requestConfig{
 		Method: "DELETE",
 		Path:   "/api/v1/auth/subscriptions/" + ucid,
 		Auth:   true,
@@ -393,7 +393,7 @@ func (c *Client) RemoveSubscription(ucid string) error {
 
 func (c *Client) Tokens() (TokensResponse, error) {
 	var resp TokensResponse
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "GET",
 		Path:   "/api/v1/auth/tokens",
 		Auth:   true,
@@ -411,7 +411,7 @@ type TokensResponse []struct {
 
 func (c *Client) RegisterToken(req RegisterTokenRequest) (*Token, error) {
 	var resp Token
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/tokens/register",
 		Auth:   true,
@@ -458,7 +458,7 @@ func ParseToken(in string) (*Token, error) {
 }
 
 func (c *Client) RevokeToken(req RevokeRequest) error {
-	return c.call(requestConfig{
+	return c.call(&requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/tokens/unregister",
 		Auth:   true,
@@ -479,7 +479,7 @@ func (c *Client) History(req HistoryRequest) (HistoryResponse, error) {
 		query.Set("page", itoa(req.Page.Unwrap()))
 	}
 	var resp HistoryResponse
-	if err := c.call(requestConfig{
+	if err := c.call(&requestConfig{
 		Method: "GET",
 		Path:   "/api/v1/auth/history",
 		Auth:   true,
@@ -499,7 +499,7 @@ type HistoryRequest struct {
 type HistoryResponse []string
 
 func (c *Client) AddToHistory(id string) error {
-	return c.call(requestConfig{
+	return c.call(&requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/history/" + id,
 		Auth:   true,
@@ -507,7 +507,7 @@ func (c *Client) AddToHistory(id string) error {
 }
 
 func (c *Client) DeleteFromHistory(id string) error {
-	return c.call(requestConfig{
+	return c.call(&requestConfig{
 		Method: "DELETE",
 		Path:   "/api/v1/auth/history/" + id,
 		Auth:   true,
