@@ -21,6 +21,10 @@ type Client struct {
 	UserAgent   string
 }
 
+func NewClient(instanceURL string) *Client {
+	return &Client{InstanceURL: instanceURL}
+}
+
 type requestConfig struct {
 	Method string
 	Path   string
