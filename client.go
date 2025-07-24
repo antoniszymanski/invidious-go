@@ -132,9 +132,18 @@ type Error struct {
 }
 
 func (e Error) Error() string {
-	if e.Message == "" {
-		return itoa(e.StatusCode) + " " + http.StatusText(e.StatusCode)
-	} else {
-		return itoa(e.StatusCode) + " " + http.StatusText(e.StatusCode) + " - " + quote(e.Message)
+	statusText := http.StatusText(e.StatusCode)
+	sz := 3 + 1 + len(statusText)
+	if e.Message != "" {
+		sz += 3 + quotedLen(e.Message)
 	}
+	dst := make([]byte, 0, sz)
+	dst = appendInt(dst, e.StatusCode)
+	dst = append(dst, ' ')
+	dst = append(dst, statusText...)
+	if e.Message != "" {
+		dst = append(dst, " - "...)
+		dst = appendQuote(dst, e.Message)
+	}
+	return bytes2string(dst)
 }

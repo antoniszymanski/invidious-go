@@ -14,12 +14,23 @@ func itoa[T constraints.Signed](i T) string {
 	return strconv.FormatInt(int64(i), 10)
 }
 
-func quote(s string) string {
+func appendInt[T constraints.Signed](dst []byte, i T) []byte {
+	return strconv.AppendInt(dst, int64(i), 10)
+}
+
+func appendQuote(dst []byte, s string) []byte {
 	if strconv.CanBackquote(s) {
-		return "`" + s + "`"
+		dst = append(dst, '`')
+		dst = append(dst, s...)
+		dst = append(dst, '`')
+		return dst
 	} else {
-		return strconv.QuoteToGraphic(s)
+		return strconv.AppendQuoteToGraphic(dst, s)
 	}
+}
+
+func quotedLen(s string) int {
+	return 1 + len(s) + 1 // best-case scenario
 }
 
 func string2bytes(s string) []byte {
