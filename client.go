@@ -18,9 +18,8 @@ import (
 type Client struct {
 	InstanceURL string
 	RawToken    string
+	UserAgent   string
 }
-
-const ua = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/138.0.0.0 Safari/537.36"
 
 type requestConfig struct {
 	Method string
@@ -76,12 +75,16 @@ func (c *Client) call(config requestConfig) error {
 		return err
 	}
 
-	req.Header.Set("User-Agent", ua)
 	if config.Auth {
 		req.Header.Set("Authorization", "Bearer "+c.RawToken)
 	}
 	if config.Input != nil {
 		req.Header.Set("Content-Type", "application/json")
+	}
+	if c.UserAgent != "" {
+		req.Header.Set("User-Agent", c.UserAgent)
+	} else {
+		req.Header.Set("User-Agent", pkgPath+" "+Version())
 	}
 
 	resp, err := http.DefaultClient.Do(req)
