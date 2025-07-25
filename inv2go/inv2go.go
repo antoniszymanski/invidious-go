@@ -83,6 +83,7 @@ func main() {
 	data, err = format.Source(string2bytes(s))
 	if err != nil {
 		os.Stderr.WriteString(err.Error()) //nolint:errcheck
+		os.Stderr.WriteString("\n")        //nolint:errcheck
 		data = string2bytes(s)
 	}
 	os.Stdout.Write(data) //nolint:errcheck
