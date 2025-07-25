@@ -14,24 +14,25 @@ import (
 )
 
 var (
-	r = strings.NewReplacer(
+	re1 = regexp.MustCompile(`Array\((.+)\)`) // Array() types
+	r   = strings.NewReplacer(
 		"Boolean", "bool", // boolean type
 		"Bool", "bool", // boolean type
 		"String", "string", // string type
 		"{", "struct {", // object types
-		",", "",
 	)
-	re1  = regexp.MustCompile(`\[\s*|]`)                   // array types
-	re2  = regexp.MustCompile(`Int(\d+)`)                  // int types
-	re3  = regexp.MustCompile(`Float(\d+)`)                // float types
-	re4  = regexp.MustCompile(`: Number // Integer`)       // Number type
-	re5  = regexp.MustCompile(`: (.+)\?`)                  // optional types
-	re6  = regexp.MustCompile(`: "(.+)"(?: // Constant)?`) // string constants
-	re7  = regexp.MustCompile(`: -?\d+`)                   // numeric literal values
-	re8  = regexp.MustCompile(`: (?:true|false)`)          // boolean literal values
-	re9  = regexp.MustCompile(`(?m): \[]\s*(?://.*)?$`)    // empty arrays
-	re10 = regexp.MustCompile(`"(.+)":`)                   // field names
-	re11 = regexp.MustCompile(`\n?\s*\n`)                  // excessive newlines
+	re2  = regexp.MustCompile(`\[\s*|]`)                   // array types
+	re3  = regexp.MustCompile(`Int(\d+)`)                  // int types
+	re4  = regexp.MustCompile(`Float(\d+)`)                // float types
+	re5  = regexp.MustCompile(`: Number // Integer`)       // Number type
+	re6  = regexp.MustCompile(`: (.+)\?`)                  // optional types
+	re7  = regexp.MustCompile(`: "(.+)"(?: // Constant)?`) // string constants
+	re8  = regexp.MustCompile(`: -?\d+`)                   // numeric literal values
+	re9  = regexp.MustCompile(`: (?:true|false)`)          // boolean literal values
+	re10 = regexp.MustCompile(`(?m): \[]\s*(?://.*)?$`)    // empty arrays
+	re11 = regexp.MustCompile(`".+":`)                     // field names p1
+	re12 = regexp.MustCompile(`".+:"`)                     // field names p2
+	re13 = regexp.MustCompile(`\n?\s*\n`)                  // excessive newlines
 )
 
 func main() {
@@ -41,8 +42,10 @@ func main() {
 	}
 	s := bytes2string(data)
 
+	s = strings.ReplaceAll(s, ",", "")
+	s = re1.ReplaceAllString(s, `[]$1`)
 	s = r.Replace(s)
-	s = re1.ReplaceAllStringFunc(s, func(s string) string {
+	s = re2.ReplaceAllStringFunc(s, func(s string) string {
 		switch s[0] {
 		case '[':
 			return "[]"
@@ -52,24 +55,30 @@ func main() {
 			panic("unreachable")
 		}
 	})
-	s = re2.ReplaceAllString(s, `int$1`)
-	s = re3.ReplaceAllString(s, `float$1`)
-	s = re4.ReplaceAllLiteralString(s, ": Number")
+	s = re3.ReplaceAllString(s, `int$1`)
+	s = re4.ReplaceAllString(s, `float$1`)
+	s = re5.ReplaceAllLiteralString(s, ": Number")
 	s = strings.ReplaceAll(s, "Number", "int64")
 	s = strings.ReplaceAll(s, ": int64 // Unix timestamp", ": time.Time")
-	s = re5.ReplaceAllString(s, `: option.Option[$1]`)
-	s = re6.ReplaceAllString(s, `: string // "$1"`)
-	s = re7.ReplaceAllString(s, `: int64`)
-	s = re8.ReplaceAllString(s, `: bool`)
-	s = re9.ReplaceAllLiteralString(s, ": []any")
+	s = re6.ReplaceAllString(s, `: option.Option[$1]`)
+	s = re7.ReplaceAllString(s, `: string // "$1"`)
+	s = re8.ReplaceAllString(s, `: int64`)
+	s = re9.ReplaceAllString(s, `: bool`)
+	s = re10.ReplaceAllLiteralString(s, ": []any")
 	s = strings.ReplaceAll(s, ": null", ": any")
-	s = re10.ReplaceAllStringFunc(s, func(s string) string {
+	s = re11.ReplaceAllStringFunc(s, func(s string) string {
 		runes := []rune(s)
 		runes = runes[1 : len(runes)-2]
 		runes[0] = unicode.ToUpper(runes[0])
 		return string(runes)
 	})
-	s = re11.ReplaceAllLiteralString(s, "\n")
+	s = re12.ReplaceAllStringFunc(s, func(s string) string {
+		runes := []rune(s)
+		runes = runes[1 : len(runes)-3]
+		runes[0] = unicode.ToUpper(runes[0])
+		return string(runes)
+	})
+	s = re13.ReplaceAllLiteralString(s, "\n")
 
 	data, err = format.Source(string2bytes(s))
 	if err != nil {
