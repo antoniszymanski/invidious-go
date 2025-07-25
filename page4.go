@@ -14,22 +14,17 @@ import (
 	"github.com/go-json-experiment/json"
 )
 
-func (c *Client) AuthorizeToken(req *AuthorizeTokenRequest) (err error) {
+func (c *Client) AuthorizeToken(expire time.Time, scopes ...string) (err error) {
 	query := make(url.Values, 3)
-	query.Set("scopes", strings.Join(req.Scopes, ","))
+	query.Set("scopes", strings.Join(scopes, ","))
 	query.Set("callback_url", "http://localhost:8080")
-	query.Set("expire", itoa(req.Expire.Unix()))
+	query.Set("expire", itoa(expire.Unix()))
 	url := c.InstanceURL + "/authorize_token" + "?" + query.Encode()
 	if err = browser.OpenURL(url); err != nil {
 		return
 	}
 	c.RawToken, err = getToken()
 	return
-}
-
-type AuthorizeTokenRequest struct {
-	Scopes []string
-	Expire time.Time
 }
 
 func getToken() (string, error) {
@@ -59,7 +54,7 @@ func getToken() (string, error) {
 	return token, nil
 }
 
-func (c *Client) Feed(req *FeedRequest) (*FeedResponse, error) {
+func (c *Client) Feed(req FeedRequest) (*FeedResponse, error) {
 	query := make(url.Values)
 	if req.MaxResults.IsSome() {
 		query.Set("max_results", itoa(req.MaxResults.Unwrap()))
@@ -169,13 +164,13 @@ type PlaylistsResponse []struct {
 	} `json:"videos"`
 }
 
-func (c *Client) CreatePlaylist(req *CreatePlaylistRequest) (*CreatePlaylistResponse, error) {
+func (c *Client) CreatePlaylist(req CreatePlaylistRequest) (*CreatePlaylistResponse, error) {
 	var resp CreatePlaylistResponse
 	if err := c.call(&requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/playlists",
 		Auth:   true,
-		Input:  req,
+		Input:  &req,
 		Output: &resp,
 	}); err != nil {
 		return nil, err
@@ -248,12 +243,12 @@ type PlaylistResponse struct {
 	} `json:"videos"`
 }
 
-func (c *Client) UpdatePlaylist(req *UpdatePlaylistRequest) error {
+func (c *Client) UpdatePlaylist(req UpdatePlaylistRequest) error {
 	return c.call(&requestConfig{
 		Method: "PATCH",
 		Path:   "/api/v1/auth/playlists/" + req.Id,
 		Auth:   true,
-		Input:  req,
+		Input:  &req,
 	})
 }
 
@@ -272,13 +267,13 @@ func (c *Client) DeletePlaylist(id string) error {
 	})
 }
 
-func (c *Client) AddVideo(req *AddVideoRequest) (*AddVideoResponse, error) {
+func (c *Client) AddVideo(req AddVideoRequest) (*AddVideoResponse, error) {
 	var resp AddVideoResponse
 	if err := c.call(&requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/playlists/" + req.PlaylistId + "/videos",
 		Auth:   true,
-		Input:  req,
+		Input:  &req,
 		Output: &resp,
 	}); err != nil {
 		return nil, err
@@ -305,7 +300,7 @@ type AddVideoResponse struct {
 	} `json:"videoThumbnails"`
 }
 
-func (c *Client) DeleteVideo(req *DeleteVideoRequest) error {
+func (c *Client) DeleteVideo(req DeleteVideoRequest) error {
 	return c.call(&requestConfig{
 		Method: "DELETE",
 		Path:   "/api/v1/auth/playlists/" + req.PlaylistId + "/videos/" + req.IndexId,
@@ -414,13 +409,13 @@ type TokensResponse []struct {
 	Issued  int64  `json:"issued"`
 }
 
-func (c *Client) RegisterToken(req *RegisterTokenRequest) (*Token, error) {
+func (c *Client) RegisterToken(req RegisterTokenRequest) (*Token, error) {
 	var resp Token
 	if err := c.call(&requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/tokens/register",
 		Auth:   true,
-		Input:  req,
+		Input:  &req,
 		Output: &resp,
 	}); err != nil {
 		return nil, err
@@ -462,12 +457,12 @@ func ParseToken(in string) (*Token, error) {
 	return &t, nil
 }
 
-func (c *Client) RevokeToken(req *RevokeRequest) error {
+func (c *Client) RevokeToken(req RevokeRequest) error {
 	return c.call(&requestConfig{
 		Method: "POST",
 		Path:   "/api/v1/auth/tokens/unregister",
 		Auth:   true,
-		Input:  req,
+		Input:  &req,
 	})
 }
 
@@ -475,7 +470,7 @@ type RevokeRequest struct {
 	Session string `json:"session"`
 }
 
-func (c *Client) History(req *HistoryRequest) (HistoryResponse, error) {
+func (c *Client) History(req HistoryRequest) (HistoryResponse, error) {
 	query := make(url.Values)
 	if req.MaxResults.IsSome() {
 		query.Set("max_results", itoa(req.MaxResults.Unwrap()))
