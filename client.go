@@ -71,11 +71,8 @@ func (c *Client) call(config *requestConfig) error {
 		body = bytes.NewReader(bodyData)
 	}
 
-	req, err := http.NewRequest(
-		config.Method,
-		c.InstanceURL+config.Path+query,
-		body,
-	)
+	url := c.InstanceURL + config.Path + query
+	req, err := http.NewRequest(config.Method, url, body)
 	if err != nil {
 		return err
 	}
