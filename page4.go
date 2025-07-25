@@ -14,17 +14,22 @@ import (
 	"github.com/go-json-experiment/json"
 )
 
-func (c *Client) AuthorizeToken(expire time.Time, scopes ...string) (err error) {
+func (c *Client) AuthorizeToken(req AuthorizeTokenRequest) (err error) {
 	query := make(url.Values, 3)
-	query.Set("scopes", strings.Join(scopes, ","))
+	query.Set("scopes", strings.Join(req.Scopes, ","))
 	query.Set("callback_url", "http://localhost:8080")
-	query.Set("expire", itoa(expire.Unix()))
+	query.Set("expire", itoa(req.Expire.Unix()))
 	url := c.InstanceURL + "/authorize_token" + "?" + query.Encode()
 	if err = browser.OpenURL(url); err != nil {
 		return
 	}
 	c.RawToken, err = getToken()
 	return
+}
+
+type AuthorizeTokenRequest struct {
+	Scopes []string
+	Expire time.Time
 }
 
 func getToken() (string, error) {
