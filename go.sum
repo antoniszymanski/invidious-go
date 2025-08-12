@@ -2,8 +2,8 @@ github.com/antoniszymanski/option-go v0.1.3 h1:iVxGXFDciIyl2pjbK8ImEqjwaiP/VsS29
 github.com/antoniszymanski/option-go v0.1.3/go.mod h1:dsOWke3pmfVHxWO5AFOvl2dy35UoMPRBt2MV19B7iYI=
 github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa h1:TwQMqyL9qyLKVLfsx7bVC1JxMcFjGxdfio4Ttsp2pEc=
 github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa/go.mod h1:HH8s+fOAxjhQoBUAsKuPCbqUuxZDhQ2/aD+SzsEfBTk=
-github.com/go-json-experiment/json v0.0.0-20250811204210-4789234c3ea1 h1:KaJSg7Eaxs50Tw1m9QeR4Ua/If27AltydVhyZ184HEI=
-github.com/go-json-experiment/json v0.0.0-20250811204210-4789234c3ea1/go.mod h1:TiCD2a1pcmjd7YnhGH0f/zKNcCD06B029pHhzV23c2M=
+github.com/go-json-experiment/json v0.0.0-20250812200409-1b6c92ecbf10 h1:SIP5aosIck7/h0agqGfoIkO0Xk5kdFni+livD5YzSp8=
+github.com/go-json-experiment/json v0.0.0-20250812200409-1b6c92ecbf10/go.mod h1:TiCD2a1pcmjd7YnhGH0f/zKNcCD06B029pHhzV23c2M=
 golang.org/x/exp v0.0.0-20250811191247-51f88131bc50 h1:3yiSh9fhy5/RhCSntf4Sy0Tnx50DmMpQ4MQdKKk4yg4=
 golang.org/x/exp v0.0.0-20250811191247-51f88131bc50/go.mod h1:rT6SFzZ7oxADUDx58pcaKFTcZ+inxAa9fTrYx/uVYwg=
 golang.org/x/sys v0.13.0 h1:Af8nKPmuFypiUBjVoU9V20FiaFXOcuZI21p0ycVYYGE=
