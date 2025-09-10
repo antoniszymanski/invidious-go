@@ -1,6 +1,6 @@
 module github.com/antoniszymanski/invidious-go
 
-go 1.25.1
+go 1.25
 
 require (
 	github.com/antoniszymanski/option-go v0.1.3
