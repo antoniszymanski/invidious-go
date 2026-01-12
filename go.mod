@@ -6,7 +6,7 @@ require (
 	github.com/antoniszymanski/option-go v0.2.2
 	github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa
 	github.com/go-json-experiment/json v0.0.0-20251027170946-4849db3c2f7e
-	golang.org/x/exp v0.0.0-20251219203646-944ab1f22d93
+	golang.org/x/exp v0.0.0-20260112195511-716be5621a96
 )
 
 require golang.org/x/sys v0.13.0 // indirect
