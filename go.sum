@@ -1,5 +1,5 @@
-github.com/antoniszymanski/option-go v0.2.2 h1:KhG7mnMdc43ZveunIZvTXoUOWgYtC0ohrX766SGTGIM=
-github.com/antoniszymanski/option-go v0.2.2/go.mod h1:Lp7HRITKtcMA69eDG7ZV0RMH0a9bbGtlsmo77aTpOPs=
+github.com/antoniszymanski/option-go v0.3.0 h1:91lBprOGgTJ2xZGCEPbFC5VqzsHjY3GyYhwr9vCFbyA=
+github.com/antoniszymanski/option-go v0.3.0/go.mod h1:7SFqQQpRK81BMwToya76vPllbU//Caj4IpVcdTWlx08=
 github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa h1:TwQMqyL9qyLKVLfsx7bVC1JxMcFjGxdfio4Ttsp2pEc=
 github.com/cli/browser v1.3.1-0.20231006085632-b393df5d7bfa/go.mod h1:HH8s+fOAxjhQoBUAsKuPCbqUuxZDhQ2/aD+SzsEfBTk=
 github.com/go-json-experiment/json v0.0.0-20260214004413-d219187c3433 h1:vymEbVwYFP/L05h5TKQxvkXoKxNvTpjxYKdF1Nlwuao=
