@@ -47,7 +47,7 @@ var opts = json.JoinOptions(
 			if err != nil {
 				return err
 			}
-			if kind := token.Kind(); kind != '0' {
+			if kind := token.Kind(); kind != jsontext.KindNumber {
 				return errors.New("invalid JSON token kind: " + kind.String())
 			}
 			*t = time.Unix(token.Int(), 0)
