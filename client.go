@@ -9,6 +9,7 @@ import (
 	"io"
 	"net/http"
 	"net/url"
+	"strconv"
 	"time"
 
 	"github.com/go-json-experiment/json"
@@ -135,7 +136,7 @@ func (e Error) Error() string {
 		sz += 3 + quotedLen(e.Message)
 	}
 	dst := make([]byte, 0, sz)
-	dst = appendInt(dst, e.StatusCode)
+	dst = strconv.AppendInt(dst, int64(e.StatusCode), 10)
 	dst = append(dst, ' ')
 	dst = append(dst, statusText...)
 	if e.Message != "" {

@@ -6,16 +6,10 @@ package invidious
 import (
 	"strconv"
 	"unsafe"
-
-	"golang.org/x/exp/constraints"
 )
 
-func itoa[T constraints.Signed](i T) string {
+func itoa[T ~int | ~int8 | ~int16 | ~int32 | ~int64](i T) string {
 	return strconv.FormatInt(int64(i), 10)
-}
-
-func appendInt[T constraints.Signed](dst []byte, i T) []byte {
-	return strconv.AppendInt(dst, int64(i), 10)
 }
 
 func appendQuote(dst []byte, s string) []byte {
