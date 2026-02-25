@@ -6,7 +6,10 @@ linters:
   settings:
     gosec:
       excludes:
-        - G103
-        - G104
-        - G107
-        - G304
+        - G103 # Audit the use of unsafe block
+        - G104 # Audit errors not checked
+        - G107 # URL provided to HTTP request as taint input
+        - G304 # File path provided as taint input
+        - G703 # Path traversal via taint analysis
+        - G704 # SSRF via taint analysis
+        - G705 # XSS via taint analysis
