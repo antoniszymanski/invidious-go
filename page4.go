@@ -9,7 +9,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/antoniszymanski/option-go"
+	. "github.com/antoniszymanski/option-go"
 	"github.com/cli/browser"
 	"github.com/go-json-experiment/json"
 )
@@ -61,12 +61,12 @@ func getToken() (string, error) {
 
 func (c *Client) Feed(req FeedRequest) (*FeedResponse, error) {
 	query := make(url.Values)
-	if req.MaxResults.IsSome() {
-		query.Set("max_results", itoa(req.MaxResults.Unwrap()))
-	}
-	if req.Page.IsSome() {
-		query.Set("page", itoa(req.Page.Unwrap()))
-	}
+	req.MaxResults.Inspect(func(maxResults *int32) {
+		query.Set("max_results", itoa(*maxResults))
+	})
+	req.Page.Inspect(func(page *int32) {
+		query.Set("page", itoa(*page))
+	})
 	var resp FeedResponse
 	if err := c.call(&requestConfig{
 		Method: "GET",
@@ -81,8 +81,8 @@ func (c *Client) Feed(req FeedRequest) (*FeedResponse, error) {
 }
 
 type FeedRequest struct {
-	MaxResults option.Option[int32]
-	Page       option.Option[int32]
+	MaxResults Option[int32]
+	Page       Option[int32]
 }
 
 type FeedResponse struct {
@@ -258,10 +258,10 @@ func (c *Client) UpdatePlaylist(req UpdatePlaylistRequest) error {
 }
 
 type UpdatePlaylistRequest struct {
-	Id          string                 `json:"-"`
-	Title       option.Option[string]  `json:"title"`
-	Description option.Option[string]  `json:"description"`
-	Privacy     option.Option[Privacy] `json:"privacy"`
+	Id          string          `json:"-"`
+	Title       Option[string]  `json:"title"`
+	Description Option[string]  `json:"description"`
+	Privacy     Option[Privacy] `json:"privacy"`
 }
 
 func (c *Client) DeletePlaylist(id string) error {
@@ -429,9 +429,9 @@ func (c *Client) RegisterToken(req RegisterTokenRequest) (*Token, error) {
 }
 
 type RegisterTokenRequest struct {
-	Scopes      []string              `json:"scopes"`
-	CallbackUrl option.Option[string] `json:"callbackUrl"`
-	Expire      time.Time             `json:"expire"`
+	Scopes      []string       `json:"scopes"`
+	CallbackUrl Option[string] `json:"callbackUrl"`
+	Expire      time.Time      `json:"expire"`
 }
 
 type Token struct {
@@ -477,12 +477,12 @@ type RevokeRequest struct {
 
 func (c *Client) History(req HistoryRequest) (HistoryResponse, error) {
 	query := make(url.Values)
-	if req.MaxResults.IsSome() {
-		query.Set("max_results", itoa(req.MaxResults.Unwrap()))
-	}
-	if req.Page.IsSome() {
-		query.Set("page", itoa(req.Page.Unwrap()))
-	}
+	req.MaxResults.Inspect(func(maxResults *int32) {
+		query.Set("max_results", itoa(*maxResults))
+	})
+	req.Page.Inspect(func(page *int32) {
+		query.Set("page", itoa(*page))
+	})
 	var resp HistoryResponse
 	if err := c.call(&requestConfig{
 		Method: "GET",
@@ -497,8 +497,8 @@ func (c *Client) History(req HistoryRequest) (HistoryResponse, error) {
 }
 
 type HistoryRequest struct {
-	MaxResults option.Option[int32]
-	Page       option.Option[int32]
+	MaxResults Option[int32]
+	Page       Option[int32]
 }
 
 type HistoryResponse []string
