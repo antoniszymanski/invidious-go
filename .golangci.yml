@@ -13,3 +13,8 @@ linters:
         - G703 # Path traversal via taint analysis
         - G704 # SSRF via taint analysis
         - G705 # XSS via taint analysis
+  exclusions:
+    rules:
+      - linters: ["staticcheck"]
+        text: "ST1001:" # Dot imports are discouraged
+
