@@ -6,6 +6,7 @@ package invidious
 import (
 	"bytes"
 	"errors"
+	"fmt"
 	"io"
 	"net/http"
 	"net/url"
@@ -51,7 +52,11 @@ var opts = json.JoinOptions(
 			if kind := token.Kind(); kind != jsontext.KindNumber {
 				return errors.New("invalid JSON token kind: " + kind.String())
 			}
-			*t = time.Unix(token.Int(), 0)
+			sec, err := token.Int()
+			if err != nil {
+				return fmt.Errorf("invalid signed integer value: %w", err)
+			}
+			*t = time.Unix(sec, 0)
 			return nil
 		},
 	)),
