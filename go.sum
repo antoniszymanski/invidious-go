@@ -2,7 +2,7 @@ github.com/antoniszymanski/option-go v0.4.0 h1:fTgRx8EEsAkZNaj4vwHxlo37uVPBPhq/Y
 github.com/antoniszymanski/option-go v0.4.0/go.mod h1:7SFqQQpRK81BMwToya76vPllbU//Caj4IpVcdTWlx08=
 github.com/cli/browser v1.3.1-0.20260520160747-1418ef7cb673 h1:R+tlmAfO19oYBstNQ1Qv+obOzopaH07a58TnMLe+8Gs=
 github.com/cli/browser v1.3.1-0.20260520160747-1418ef7cb673/go.mod h1:ZKoEOcOjqCp+q67ojCTqVPQFhjLUWYQz55wmJjRVEkk=
-github.com/go-json-experiment/json v0.0.0-20260505212615-e40f80bf6836 h1:5KGUhXZFTN1PrCY4zUZLe1J8n7uBNmPDbCLCn78EbPQ=
-github.com/go-json-experiment/json v0.0.0-20260505212615-e40f80bf6836/go.mod h1:tphK2c80bpPhMOI4v6bIc2xWywPfbqi1Z06+RcrMkDg=
+github.com/go-json-experiment/json v0.0.0-20260520185125-572e7c383686 h1:NZBJxCpbHS1gzS6xAmyxbJznosZIIPk9IB42v62UvKA=
+github.com/go-json-experiment/json v0.0.0-20260520185125-572e7c383686/go.mod h1:tphK2c80bpPhMOI4v6bIc2xWywPfbqi1Z06+RcrMkDg=
 golang.org/x/sys v0.44.0 h1:ildZl3J4uzeKP07r2F++Op7E9B29JRUy+a27EibtBTQ=
 golang.org/x/sys v0.44.0/go.mod h1:4GL1E5IUh+htKOUEOaiffhrAeqysfVGipDYzABqnCmw=
