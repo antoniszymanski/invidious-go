@@ -1,7 +1,7 @@
 github.com/antoniszymanski/option-go v0.4.0 h1:fTgRx8EEsAkZNaj4vwHxlo37uVPBPhq/Y/GKmZbPBBo=
 github.com/antoniszymanski/option-go v0.4.0/go.mod h1:7SFqQQpRK81BMwToya76vPllbU//Caj4IpVcdTWlx08=
-github.com/cli/browser v1.3.1-0.20260619211148-d64b903fe68c h1:Cqb5HqeNl6hlfvq4myZYz/sq2Cf54udAmd3iqVgILgY=
-github.com/cli/browser v1.3.1-0.20260619211148-d64b903fe68c/go.mod h1:WZeo4l2Nbx3XuWQ66J/J4x8qHdfBHdKp9DIHSLeM35A=
+github.com/cli/browser v1.3.1-0.20260622202203-d2c9f103b8c7 h1:uPh5iV29b7UTn4O14xgyYtUaIQy3yVmhZix0hSZw5bg=
+github.com/cli/browser v1.3.1-0.20260622202203-d2c9f103b8c7/go.mod h1:WZeo4l2Nbx3XuWQ66J/J4x8qHdfBHdKp9DIHSLeM35A=
 github.com/go-json-experiment/json v0.0.0-20260601182631-00ed12fed2a6 h1:nxP4pPoyqOAgX8lYDFCfl3DyKeXErCvSvhcyzwGV9CE=
 github.com/go-json-experiment/json v0.0.0-20260601182631-00ed12fed2a6/go.mod h1:tphK2c80bpPhMOI4v6bIc2xWywPfbqi1Z06+RcrMkDg=
 golang.org/x/sys v0.46.0 h1:noSf2Fq6F8DBgS+LysIkx7rIExoNHJsxOAtPp4rthXw=
