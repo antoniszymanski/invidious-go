@@ -3,7 +3,7 @@ module github.com/antoniszymanski/invidious-go
 go 1.26
 
 require (
-	github.com/antoniszymanski/option-go v0.4.0
+	github.com/antoniszymanski/option-go v0.4.1
 	github.com/cli/browser v1.3.1-0.20260622202203-d2c9f103b8c7
 	github.com/go-json-experiment/json v0.0.0-20260623181947-01eb4420fa68
 )
