@@ -6,7 +6,7 @@ package invidious
 import (
 	"net/url"
 
-	"github.com/antoniszymanski/option-go"
+	. "github.com/antoniszymanski/option-go"
 )
 
 func (c *Client) Stats() (*StatsResponse, error) {
@@ -41,9 +41,9 @@ type StatsResponse struct {
 		LastChannelRefreshedAt int64 `json:"lastChannelRefreshedAt"`
 	} `json:"metadata"`
 	Playback struct {
-		TotalRequests      option.Option[int32]   `json:"totalRequests"`
-		SuccessfulRequests option.Option[int32]   `json:"successfulRequests"`
-		Ratio              option.Option[float32] `json:"ratio"`
+		TotalRequests      Option[int32]   `json:"totalRequests"`
+		SuccessfulRequests Option[int32]   `json:"successfulRequests"`
+		Ratio              Option[float32] `json:"ratio"`
 	} `json:"playback"`
 }
 
@@ -112,52 +112,52 @@ type VideoResponse struct {
 		Width  int32  `json:"width"`
 		Height int32  `json:"height"`
 	} `json:"authorThumbnails"`
-	SubCountText      string                `json:"subCountText"`
-	LengthSeconds     int32                 `json:"lengthSeconds"`
-	AllowRatings      bool                  `json:"allowRatings"`
-	Rating            float32               `json:"rating"`
-	IsListed          bool                  `json:"isListed"`
-	LiveNow           bool                  `json:"liveNow"`
-	IsPostLiveDvr     bool                  `json:"isPostLiveDvr"`
-	IsUpcoming        bool                  `json:"isUpcoming"`
-	DashUr            string                `json:"dashUr"`
-	PremiereTimestamp option.Option[int64]  `json:"premiereTimestamp"`
-	HlsUrl            option.Option[string] `json:"hlsUrl"`
+	SubCountText      string         `json:"subCountText"`
+	LengthSeconds     int32          `json:"lengthSeconds"`
+	AllowRatings      bool           `json:"allowRatings"`
+	Rating            float32        `json:"rating"`
+	IsListed          bool           `json:"isListed"`
+	LiveNow           bool           `json:"liveNow"`
+	IsPostLiveDvr     bool           `json:"isPostLiveDvr"`
+	IsUpcoming        bool           `json:"isUpcoming"`
+	DashUr            string         `json:"dashUr"`
+	PremiereTimestamp Option[int64]  `json:"premiereTimestamp"`
+	HlsUrl            Option[string] `json:"hlsUrl"`
 	AdaptiveFormats   []struct {
-		Index             string                `json:"index"`
-		Bitrate           string                `json:"bitrate"`
-		Init              string                `json:"init"`
-		Url               string                `json:"url"`
-		Itag              string                `json:"itag"`
-		Type              string                `json:"type"`
-		Clen              string                `json:"clen"`
-		Lmt               string                `json:"lmt"`
-		ProjectionType    string                `json:"projectionType"`
-		Container         string                `json:"container"`
-		Encoding          string                `json:"encoding"`
-		QualityLabel      option.Option[string] `json:"qualityLabel"`
-		Resolution        option.Option[string] `json:"resolution"`
-		Fps               int32                 `json:"fps"`
-		Size              option.Option[string] `json:"size"`
-		TargetDurationsec option.Option[int64]  `json:"targetDurationsec"`
-		MaxDvrDurationSec option.Option[int64]  `json:"maxDvrDurationSec"`
-		AudioQuality      option.Option[string] `json:"audioQuality"`
-		AudioSampleRate   option.Option[string] `json:"audioSampleRate"`
-		AudioChannels     option.Option[string] `json:"audioChannels"`
-		ColorInfo         option.Option[string] `json:"colorInfo"`
-		CaptionTrack      option.Option[string] `json:"captionTrack"`
+		Index             string         `json:"index"`
+		Bitrate           string         `json:"bitrate"`
+		Init              string         `json:"init"`
+		Url               string         `json:"url"`
+		Itag              string         `json:"itag"`
+		Type              string         `json:"type"`
+		Clen              string         `json:"clen"`
+		Lmt               string         `json:"lmt"`
+		ProjectionType    string         `json:"projectionType"`
+		Container         string         `json:"container"`
+		Encoding          string         `json:"encoding"`
+		QualityLabel      Option[string] `json:"qualityLabel"`
+		Resolution        Option[string] `json:"resolution"`
+		Fps               int32          `json:"fps"`
+		Size              Option[string] `json:"size"`
+		TargetDurationsec Option[int64]  `json:"targetDurationsec"`
+		MaxDvrDurationSec Option[int64]  `json:"maxDvrDurationSec"`
+		AudioQuality      Option[string] `json:"audioQuality"`
+		AudioSampleRate   Option[string] `json:"audioSampleRate"`
+		AudioChannels     Option[string] `json:"audioChannels"`
+		ColorInfo         Option[string] `json:"colorInfo"`
+		CaptionTrack      Option[string] `json:"captionTrack"`
 	} `json:"adaptiveFormats"`
 	FormatStreams []struct {
-		Url          string                `json:"url"`
-		Itag         string                `json:"itag"`
-		Type         string                `json:"type"`
-		Quality      string                `json:"quality"`
-		Bitrate      option.Option[string] `json:"bitrate"`
-		Container    string                `json:"container"`
-		Encoding     string                `json:"encoding"`
-		QualityLabel string                `json:"qualityLabel"`
-		Resolution   string                `json:"resolution"`
-		Size         string                `json:"size"`
+		Url          string         `json:"url"`
+		Itag         string         `json:"itag"`
+		Type         string         `json:"type"`
+		Quality      string         `json:"quality"`
+		Bitrate      Option[string] `json:"bitrate"`
+		Container    string         `json:"container"`
+		Encoding     string         `json:"encoding"`
+		QualityLabel string         `json:"qualityLabel"`
+		Resolution   string         `json:"resolution"`
+		Size         string         `json:"size"`
 	} `json:"formatStreams"`
 	Captions []struct {
 		Label         string `json:"label"`
@@ -179,10 +179,10 @@ type VideoResponse struct {
 			Width   int32  `json:"width"`
 			Height  int32  `json:"height"`
 		} `json:"videoThumbnails"`
-		Author           string                `json:"author"`
-		AuthorUrl        string                `json:"authorUrl"`
-		AuthorId         option.Option[string] `json:"authorId"`
-		AuthorVerified   bool                  `json:"authorVerified"`
+		Author           string         `json:"author"`
+		AuthorUrl        string         `json:"authorUrl"`
+		AuthorId         Option[string] `json:"authorId"`
+		AuthorVerified   bool           `json:"authorVerified"`
 		AuthorThumbnails []struct {
 			Url    string `json:"url"`
 			Width  int32  `json:"width"`

@@ -49,7 +49,7 @@ func run() (string, error) {
 	processed = strings.ReplaceAll(processed, ": Number // Integer", ": Number")
 	processed = strings.ReplaceAll(processed, "Number", "int64")
 	processed = strings.ReplaceAll(processed, ": int64 // Unix timestamp", ": time.Time")
-	processed = re7.ReplaceAllString(processed, `: option.Option[$1]`)
+	processed = re7.ReplaceAllString(processed, `: Option[$1]`)
 	processed = re8.ReplaceAllString(processed, `: string // "$1"`)
 	processed = re9.ReplaceAllLiteralString(processed, ": int64")
 	processed = re10.ReplaceAllLiteralString(processed, ": bool")
